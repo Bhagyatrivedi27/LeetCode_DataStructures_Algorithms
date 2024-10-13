@@ -1,13 +1,15 @@
-class ListNode:    
-    def __init__(self, value=None):
-        self.value = value
+# Definition of a node in a singly linked list
+class Node:
+    def __init__(self, val=None):
+        self.val = val
         self.next = None
 
 
+# Circular Queue using singly linked list
 class MyCircularQueue:
     def __init__(self, k: int):
-        self.max_size = k
-        self.size = 0
+        self.capacity = k
+        self.current_size = 0
         self.front = None
         self.rear = None
 
@@ -15,18 +17,18 @@ class MyCircularQueue:
         if self.isFull():
             return False
 
-        new_node = ListNode(value)
+        new_node = Node(value)
 
         if self.isEmpty():
             self.front = new_node
             self.rear = new_node
-            new_node.next = self.front  
+            new_node.next = self.front  # Circular link
         else:
             self.rear.next = new_node
             self.rear = new_node
-            self.rear.next = self.front 
+            self.rear.next = self.front  # Maintain circularity
 
-        self.size += 1
+        self.current_size += 1
         return True
 
     def deQueue(self) -> bool:
@@ -40,30 +42,31 @@ class MyCircularQueue:
             self.front = self.front.next
             self.rear.next = self.front
 
-        self.size -= 1
+        self.current_size -= 1
         return True
 
     def Front(self) -> int:
         if self.isEmpty():
             return -1
-        return self.front.value
+        return self.front.val
 
     def Rear(self) -> int:
         if self.isEmpty():
             return -1
-        return self.rear.value
+        return self.rear.val
 
     def isEmpty(self) -> bool:
-        return self.size == 0
+        return self.current_size == 0
 
     def isFull(self) -> bool:
-        return self.size == self.max_size
+        return self.current_size == self.capacity
 
 
+# Circular Deque using singly linked list
 class MyCircularDeque:
     def __init__(self, k: int):
-        self.max_size = k
-        self.size = 0
+        self.limit = k
+        self.length = 0
         self.front = None
         self.rear = None
 
@@ -71,36 +74,36 @@ class MyCircularDeque:
         if self.isFull():
             return False
 
-        new_node = ListNode(value)
+        new_node = Node(value)
 
         if self.isEmpty():
             self.front = new_node
             self.rear = new_node
-            new_node.next = self.front  
+            new_node.next = self.front  # Circular link
         else:
             new_node.next = self.front
             self.front = new_node
-            self.rear.next = self.front  
+            self.rear.next = self.front  # Maintain circularity
 
-        self.size += 1
+        self.length += 1
         return True
 
     def insertLast(self, value: int) -> bool:
         if self.isFull():
             return False
 
-        new_node = ListNode(value)
+        new_node = Node(value)
 
         if self.isEmpty():
             self.front = new_node
             self.rear = new_node
-            new_node.next = self.front  
+            new_node.next = self.front  # Circular link
         else:
             self.rear.next = new_node
             self.rear = new_node
-            self.rear.next = self.front  
+            self.rear.next = self.front  # Maintain circularity
 
-        self.size += 1
+        self.length += 1
         return True
 
     def deleteFront(self) -> bool:
@@ -114,7 +117,7 @@ class MyCircularDeque:
             self.front = self.front.next
             self.rear.next = self.front
 
-        self.size -= 1
+        self.length -= 1
         return True
 
     def deleteLast(self) -> bool:
@@ -125,62 +128,64 @@ class MyCircularDeque:
             self.front = None
             self.rear = None
         else:
-            current = self.front
-            while current.next != self.rear:
-                current = current.next
-            current.next = self.front
-            self.rear = current
+            temp = self.front
+            while temp.next != self.rear:
+                temp = temp.next
+            temp.next = self.front
+            self.rear = temp
 
-        self.size -= 1
+        self.length -= 1
         return True
 
     def getFront(self) -> int:
         if self.isEmpty():
             return -1
-        return self.front.value
+        return self.front.val
 
     def getRear(self) -> int:
         if self.isEmpty():
             return -1
-        return self.rear.value
+        return self.rear.val
 
     def isEmpty(self) -> bool:
-        return self.size == 0
+        return self.length == 0
 
     def isFull(self) -> bool:
-        return self.size == self.max_size
+        return self.length == self.limit
 
 
+# Stack implementation using singly linked list
 class MyStack:
     def __init__(self):
-        self.head = None
+        self.top_node = None
 
     def push(self, x: int) -> None:
-        new_node = ListNode(x)
-        new_node.next = self.head
-        self.head = new_node
+        new_node = Node(x)
+        new_node.next = self.top_node
+        self.top_node = new_node
 
     def pop(self) -> int:
-        if self.head is None:
+        if self.top_node is None:
             return None
-        popped_value = self.head.value
-        self.head = self.head.next
-        return popped_value
+        top_value = self.top_node.val
+        self.top_node = self.top_node.next
+        return top_value
 
     def top(self) -> int:
-        if self.head is None:
+        if self.top_node is None:
             return None
-        return self.head.value
+        return self.top_node.val
 
     def empty(self) -> bool:
-        return self.head is None
+        return self.top_node is None
 
 
+# Lowest Common Ancestor for a Binary Search Tree (BST)
 class Solution:
-    def lowestCommonAncestor(self, root: 'Node', p: 'Node', q: 'Node') -> 'Node':
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         current = root
 
-        # Traverse the tree
+        # Traversing the BST
         while current:
             if p.val < current.val and q.val < current.val:
                 current = current.left
