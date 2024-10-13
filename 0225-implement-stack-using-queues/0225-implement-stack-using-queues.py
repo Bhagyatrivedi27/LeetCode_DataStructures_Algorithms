@@ -11,87 +11,87 @@ class ListNode:
 class Slist:
     def __init__(self):
         # NOTHING CAN BE CHANGED HERE
-        self._first = None
-        self._last = None
-        self._len = 0
+        self._start = None
+        self._end = None
+        self._count = 0
 
-    # Public method to add to the end of the list
+    # Method to add to the end of the list
     def append(self, value):
-        new_node = ListNode(value)
-        if self._first is None:
-            self._first = new_node
-            self._last = new_node
+        node = ListNode(value)
+        if self._start is None:
+            self._start = node
+            self._end = node
         else:
-            self._last.next = new_node
-            self._last = new_node
-        self._len += 1
+            self._end.next = node
+            self._end = node
+        self._count += 1
 
-    # Public method to add to the front of the list
+    # Method to add to the front of the list
     def prepend(self, value):
-        new_node = ListNode(value)
-        if self._first is None:
-            self._first = new_node
-            self._last = new_node
+        node = ListNode(value)
+        if self._start is None:
+            self._start = node
+            self._end = node
         else:
-            new_node.next = self._first
-            self._first = new_node
-        self._len += 1
+            node.next = self._start
+            self._start = node
+        self._count += 1
 
-    # Public method to remove and return the first element
+    # Method to remove and return the first element
     def remove_first(self):
-        if self._first is None:
+        if self._start is None:
             return None
-        value = self._first.val
-        self._first = self._first.next
-        self._len -= 1
-        if self._first is None:
-            self._last = None
-        return value
+        val = self._start.val
+        self._start = self._start.next
+        self._count -= 1
+        if self._start is None:
+            self._end = None
+        return val
 
-    # Public method to remove the last element
+    # Method to remove the last element
     def remove_last(self):
-        if self._first is None:
+        if self._start is None:
             return None
-        if self._first == self._last:
-            value = self._first.val
-            self._first = None
-            self._last = None
-            self._len = 0
-            return value
-        current = self._first
-        while current.next != self._last:
+        if self._start == self._end:
+            val = self._start.val
+            self._start = None
+            self._end = None
+            self._count = 0
+            return val
+        current = self._start
+        while current.next != self._end:
             current = current.next
-        value = self._last.val
-        self._last = current
-        self._last.next = None
-        self._len -= 1
-        return value
+        val = self._end.val
+        self._end = current
+        self._end.next = None
+        self._count -= 1
+        return val
 
-    # Public method to get the first element's value
+    # Method to get the first element's value
     def get_first(self):
-        if self._first is None:
+        if self._start is None:
             return -1
-        return self._first.val
+        return self._start.val
 
-    # Public method to get the last element's value
+    # Method to get the last element's value
     def get_last(self):
-        if self._last is None:
+        if self._end is None:
             return -1
-        return self._last.val
+        return self._end.val
 
     # Check if the list is empty
     def is_empty(self):
-        return self._len == 0
+        return self._count == 0
 
     # Return the current length of the list
     def length(self):
-        return self._len
+        return self._count
 
     # Reset the list
     def reset(self):
-        self._first = None
-        self._last = None
-        self._len = 0
+        self._start = None
+        self._end = None
+        self._count = 0
 
 
 ############################################################
