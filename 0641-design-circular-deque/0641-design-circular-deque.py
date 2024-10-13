@@ -4,6 +4,45 @@ class Node:
         self.val = val
         self.next = None
 
+# Stack implementation using singly linked list
+class MyStack:
+    def __init__(self):
+        self.top_node = None
+
+    def push(self, x: int) -> None:
+        new_node = Node(x)
+        new_node.next = self.top_node
+        self.top_node = new_node
+
+    def pop(self) -> int:
+        if self.top_node is None:
+            return None
+        top_value = self.top_node.val
+        self.top_node = self.top_node.next
+        return top_value
+
+    def top(self) -> int:
+        if self.top_node is None:
+            return None
+        return self.top_node.val
+
+    def empty(self) -> bool:
+        return self.top_node is None
+
+# Lowest Common Ancestor for a Binary Search Tree (BST)
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        current = root
+
+        # Traversing the BST
+        while current:
+            if p.val < current.val and q.val < current.val:
+                current = current.left
+            elif p.val > current.val and q.val > current.val:
+                current = current.right
+            else:
+                return current
+
 
 # Circular Queue using singly linked list
 class MyCircularQueue:
@@ -154,42 +193,6 @@ class MyCircularDeque:
         return self.length == self.limit
 
 
-# Stack implementation using singly linked list
-class MyStack:
-    def __init__(self):
-        self.top_node = None
-
-    def push(self, x: int) -> None:
-        new_node = Node(x)
-        new_node.next = self.top_node
-        self.top_node = new_node
-
-    def pop(self) -> int:
-        if self.top_node is None:
-            return None
-        top_value = self.top_node.val
-        self.top_node = self.top_node.next
-        return top_value
-
-    def top(self) -> int:
-        if self.top_node is None:
-            return None
-        return self.top_node.val
-
-    def empty(self) -> bool:
-        return self.top_node is None
 
 
-# Lowest Common Ancestor for a Binary Search Tree (BST)
-class Solution:
-    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        current = root
 
-        # Traversing the BST
-        while current:
-            if p.val < current.val and q.val < current.val:
-                current = current.left
-            elif p.val > current.val and q.val > current.val:
-                current = current.right
-            else:
-                return current
